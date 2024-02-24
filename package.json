@@ -4,7 +4,9 @@
   "description": "",
  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "parcel index.html",
+    "build" : "parcel build index.html"
   },
   "repository": {
     "type": "git",
@@ -30,5 +32,9 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }
+  },
+  "browserslist" : [
+    "last 10 Chrome version",
+    "last 2 Firefox version"
+  ]
 }
