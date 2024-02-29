@@ -1,67 +1,51 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import Header from './components/Header';
+import Body from './components/Body';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import About from './components/About';
+import Contact from './components/Contact';
+import Cart from './components/Cart';
+import Error from './components/Error';
+import RestaurantMenu from './components/RestaurantMenu';
 
 const AppComponent = () => {
     return(<div className='app'>
       <Header/> 
-      <Body/> 
+      <Outlet/> 
     </div>)
 }
 
-const Header = () => {
-    return(<div className='header'>
-        <div className='logo-container'>
-            <img className="logo" src={"https://cdn-icons-png.flaticon.com/512/2721/2721986.png"}/>
-        </div>
-        <div className='nav-items'>
-        <ul>
-           <li>Home</li>
-           <li>About Us</li>
-           <li>Contact Us</li>
-           <li>Cart</li> 
-        </ul>
-        </div>
-    </div>)
-}
-
-const RestaurantCard = (props) => {
-    const {resName, cuisine, rating, ETA} = props;
-    return(<div className='res-card'>
-        <h3>{resName}</h3>
-        <img src={"https://mir-s3-cdn-cf.behance.net/projects/404/aa7d7196392551.Y3JvcCw4NTIsNjY2LDAsOTk.png"} alt="res-img"/>
-        <h4>{cuisine}</h4>
-        <h5>{rating}</h5>
-        <h5>{ETA}</h5>
-    </div>)
-}
-
-const Body = () => {
-    return(<div className='body'>
-        <div className='search'>Search</div>
-        <div className='res-container'>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-            <RestaurantCard resName="Bengaluru Bhavan" cuisine="South Indian"
-            rating="4.4 stars"
-            ETA="38 mins"/>
-        </div>
-
-    </div>)
-}
+const appRouter = createBrowserRouter([
+  {
+    path:"/",
+    element: <AppComponent/>,
+    children: [
+      {
+        path: "/",
+        element : <Body/>
+      },
+      {
+        path : "/about",
+        element : <About/>
+      },
+      {
+        path : "/contact",
+        element : <Contact/>
+      },
+      {
+        path : "/cart",
+        element : <Cart/>
+      },
+      {
+        path : "/restaurant/:resId",
+        element : <RestaurantMenu/>
+      }
+    ],
+    errorElement : <Error/>,
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppComponent/>)
+root.render(<RouterProvider router={appRouter}><AppComponent/></RouterProvider>)
