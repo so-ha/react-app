@@ -33,12 +33,12 @@ const Body = () => {
 
     return(<div className='body'>
         {/* <div className='search'>Search</div> */}
-        <div className="filter">
-            <div className="search">
-                <input type="text" className="search-box" value={searchText} onChange={(e)=>{
+        <div className="filter flex justify-center">
+            <div className="search m-5 p-5">
+                <input type="text" className="border-solid border-black" value={searchText} onChange={(e)=>{
                     setSearchText(e.target.value)
                 }}/>
-                <button onClick={()=>{
+                <button className="px-4 py-2 bg-green-100 m-5 rounded-lg" onClick={()=>{
                     const filteredList = listOfRestaurants.filter((res)=>{
                         console.log(res.info.name)
                         if(res.info.name.toLowerCase().includes(searchText.toLowerCase(c)))
@@ -47,10 +47,11 @@ const Body = () => {
                     setFilteredRestaurants(filteredList)
                 }}>Search</button>
             </div>
-            <button className="filter-btn" onClick={()=>{
+            <div className=" m-5 p-5">
+            <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={()=>{
                 const filteredList = listOfRestaurants.filter((res)=> res.data.avgRating > 4);
                 setFilteredRestaurants(filteredList)
-            }}>Top Rated Restaurant</button>
+            }}>Top Rated Restaurant</button></div>
         </div>
         <div className='res-container'>
             {filteredRestaurants&&filteredRestaurants.map((res)=>(

@@ -10,28 +10,28 @@ const Header = () => {
     useEffect(()=>{
         
     }, [])
-    return(<div className='header'>
+    return(<div className='flex justify-between shadow-md mb-5 px-2'>
         <div className='logo-container'>
-            <img className="logo" src={LOGO_URL}/>
+            <img className="w-20" src={LOGO_URL}/>
         </div>
         <div className='nav-items'>
-        <ul>
-            <li>
+        <ul className="flex p-5 m-5 align-middle">
+            <li className="px-4">
                 {onlineStatus == true ? "Online" : "Offline"}
             </li>
-           <li>
+           <li className="px-4">
             <Link to="/">Home</Link>
             </li>
-           <li>
+           <li className="px-4">
             <Link to="/about">About Us</Link>
             </li>
-           <li>
+           <li className="px-4">
             <Link to="/contact">Contact Us</Link>
             </li>
-            <li>
+            <li className="px-4">
             <Link to="/grocery">Grocery</Link>
             </li> 
-           <li>
+           <li className="px-4">
             <Link to="/cart">Cart</Link>
             </li> 
            <li><button className="login" onClick={()=>{
