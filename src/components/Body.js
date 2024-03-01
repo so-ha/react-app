@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { CDN_URL } from "../utils/constants";
 import RestaurantCard from "./RestaurantCard";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
 
@@ -21,6 +23,12 @@ const Body = () => {
         console.log(json?.data?.cards[index]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurants(json?.data?.cards[index]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         setListOfRestaurants(json?.data?.cards[index]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    }
+
+    const onlineStatus = useOnlineStatus();
+
+    if(onlineStatus===false) {
+        return(<h1>You're offline</h1>)
     }
 
     return(<div className='body'>
@@ -46,7 +54,7 @@ const Body = () => {
         </div>
         <div className='res-container'>
             {filteredRestaurants&&filteredRestaurants.map((res)=>(
-            <Link  key={res.info.id}  to={`/restaurant/151649`}><RestaurantCard resData={res.info}/></Link>
+            <Link key={res.info.id}  to={`/restaurant/151649`}><RestaurantCard resData={res.info}/></Link>
             ))}
         </div>
 
