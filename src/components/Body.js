@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CDN_URL } from "../utils/constants";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
 
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([])
 
-    const [searchText, setSearchText] = useState('')
+    const [searchText, setSearchText] = useState('');
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
+    const userObj = useContext(UserContext);
+
+    const promoted = true;
     useEffect(()=>{
         fetchData();
     }, [])
@@ -52,10 +57,15 @@ const Body = () => {
                 const filteredList = listOfRestaurants.filter((res)=> res.data.avgRating > 4);
                 setFilteredRestaurants(filteredList)
             }}>Top Rated Restaurant</button></div>
+            <div>
+                <label>UserName : </label>
+                <input className="border border-black" value={userObj.loggedInUser?userObj.loggedInUser:""}onChange={(e)=>{userObj.setUserInfo(e.target.value)}}/>
+            </div>
         </div>
         <div className='res-container'>
             {filteredRestaurants&&filteredRestaurants.map((res)=>(
-            <Link key={res.info.id}  to={`/restaurant/151649`}><RestaurantCard resData={res.info}/></Link>
+            <Link key={res.info.id}  to={`/restaurant/151649`}>
+                {promoted? <RestaurantCardPromoted  resData={res.info}/>: <RestaurantCard resData={res.info}/>}</Link>
             ))}
         </div>
 
